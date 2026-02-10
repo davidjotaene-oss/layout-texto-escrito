@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layout MyL Final - DavidJotaene Definitive</title>
+    <title>Layout MyL Final - DavidJotaene Fix</title>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
@@ -25,25 +25,17 @@
             overflow: hidden;
         }
         
-        body.preview-mode {
-            width: 100vw; height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            background: #111 !important;
-        }
-
+        /* Contenedor Principal con tamaño fijo */
         .layout-grid {
             display: grid;
             grid-template-columns: 1fr 420px;
-            /* HEADER (160px) | AREA JUEGO (1fr) | FOOTER (50px) */
-            grid-template-rows: 160px 1fr 50px; 
+            /* Header 160px | Centro Flexible | Footer 60px */
+            grid-template-rows: 160px 1fr 60px; 
             width: 1920px; height: 1080px;
-        }
-        
-        body.preview-mode .layout-grid {
-            transform-origin: center center;
+            box-sizing: border-box;
         }
 
-        /* --- HEADER (TOP) --- */
+        /* --- HEADER --- */
         .header {
             grid-column: 1 / span 2;
             background: black;
@@ -61,7 +53,7 @@
         .subtitle-myl { margin: 0; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--neon-green); letter-spacing: 5px; text-shadow: 0 0 10px var(--neon-green); }
         .team-title { font-size: 5.5rem; color: #fff; letter-spacing: 4px; text-shadow: 2px 2px 5px black, 0 0 20px var(--neon-cyan); margin: 0; line-height: 1; }
 
-        /* --- PERSONAJES (RECORTE LIMPIO) --- */
+        /* PERSONAJES */
         .char-container {
             position: absolute; top: 0; height: 156px; width: 400px;
             z-index: 1; background: radial-gradient(circle at center, transparent 30%, black 85%);
@@ -77,7 +69,6 @@
             100% { filter: brightness(1.1) drop-shadow(0 0 25px var(--fire-main)); }
         }
 
-        /* --- TAO PAI PAI + PARTÍCULAS --- */
         .tao-container {
             position: relative; width: 280px; height: 150px;
             display: flex; align-items: center; justify-content: center;
@@ -103,18 +94,17 @@
 
         .neon-border { border: 1px solid var(--neon-cyan); padding: 15px; border-radius: 10px; background: rgba(0, 0, 0, 0.9); }
 
-        /* BUSCADOR */
         .search-box {
             width: 100%; background: #000; border: 1px solid #333; border-radius: 5px;
             padding: 10px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif;
             font-size: 0.8rem; margin-bottom: 15px; outline: none; box-sizing: border-box;
         }
 
-        /* CONTENEDOR CARTA */
         .card-slot { 
             width: 100%; height: 480px; 
             background: rgba(0,0,0,0.5); border: 1px dashed #222; border-radius: 15px;
             display: flex; align-items: center; justify-content: center; overflow: hidden;
+            position: relative;
         }
         .card-slot img { 
             max-width: 95%; max-height: 95%; object-fit: contain; 
@@ -125,24 +115,31 @@
             100% { transform: scale(1) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 15px var(--neon-cyan)); }
         }
 
-        /* MARCADOR */
+        /* SCORE */
         .score-val { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; color: var(--neon-cyan); }
-        .score-btn { background: var(--neon-cyan); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; transition: 0.3s; }
+        .score-btn { background: var(--neon-cyan); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 1.2rem; }
 
-        /* SOCIAL */
         .social-box { margin-top: auto; border: 2px solid var(--neon-pink); background: black; padding: 15px; text-align: center; border-radius: 12px; }
         .instagram-tag { display: inline-flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--neon-cyan); }
 
-        /* --- FOOTER (BARRA DE CIERRE) --- */
+        /* --- BARRA DE ABAJO (FOOTER) - CORREGIDA --- */
         .footer-bar { 
             grid-column: 1 / span 2; 
-            background: linear-gradient(90deg, var(--neon-cyan), #000 15%, #000 85%, var(--neon-pink));
-            border-top: 4px solid var(--neon-cyan); /* La línea de cierre */
-            box-shadow: 0 -10px 25px rgba(0, 242, 255, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
+            background: #000;
+            border-top: 4px solid var(--neon-cyan);
+            border-bottom: 4px solid var(--neon-pink);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 -10px 30px rgba(0, 242, 255, 0.3);
+            z-index: 100; /* Asegurar que esté sobre todo */
+        }
+
+        .footer-text {
+            color: white;
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            letter-spacing: 12px;
+            text-shadow: 0 0 10px var(--neon-cyan);
+            opacity: 0.8;
         }
 
         .label { display: block; color: var(--neon-pink); font-size: 1.1rem; text-transform: uppercase; margin-bottom: 10px; font-family: 'Orbitron'; }
@@ -164,33 +161,24 @@
                 </div>
                 <img src="tao_logo.png" alt="Tao Pai Pai" class="tao-img">
             </div>
-
-            <div class="char-container char-left">
-                <img src="personaje_bg.png" alt="" class="bg-character">
-            </div>
-            
+            <div class="char-container char-left"><img src="personaje_bg.png" class="bg-character"></div>
             <div class="title-group">
                 <p class="subtitle-myl">MITOS Y LEYENDAS</p>
                 <h1 class="team-title">TEAM TAO PAI PAI</h1>
             </div>
-
-            <div class="char-container char-right">
-                <img src="personaje_right.png" alt="" class="bg-character">
-            </div>
-
+            <div class="char-container char-right"><img src="personaje_right.png" class="bg-character"></div>
             <img src="aogeek.png" alt="AO GEEK STORE" class="logo-geek">
         </header>
 
-        <!-- ÁREA DE VIDEO OBS -->
         <main class="game-area"></main>
 
         <aside class="sidebar">
             <div class="neon-border">
                 <span class="label">Selector de Carta</span>
-                <input type="text" id="card-search" class="search-box" placeholder="Escribe y Enter..." list="card-list" autocomplete="off">
+                <input type="text" id="card-search" class="search-box" placeholder="Escribe y Enter..." list="card-list">
                 <datalist id="card-list"></datalist>
                 <div class="card-slot" id="card-slot">
-                    <span id="placeholder-text" style="color:#222; font-family:'Orbitron'; font-size:0.7rem;">SIN CARTA</span>
+                    <span id="placeholder-text" style="color:#333; font-family:'Orbitron'; font-size:0.7rem;">ESPERANDO...</span>
                 </div>
             </div>
 
@@ -216,18 +204,19 @@
             </div>
         </aside>
 
-        <!-- BARRA DE CIERRE INFERIOR -->
-        <div class="footer-bar">
-            <div style="color: rgba(255,255,255,0.2); font-family: 'Orbitron'; font-size: 0.6rem; letter-spacing: 10px;">
-                TEAM TAO PAI PAI • OFFICIAL STREAM LAYOUT
-            </div>
-        </div>
+        <!-- BARRA DE CIERRE INFERIOR (FOOTER) -->
+        <footer class="footer-bar">
+            <div class="footer-text">TEAM TAO PAI PAI • OFFICIAL LAYOUT</div>
+        </footer>
     </div>
 
     <script>
         const GITHUB_USER = "davidjotaene-oss"; 
         const GITHUB_REPO = "layout-texto-escrito"; 
         const GITHUB_FOLDER = "cartas"; 
+        const BRANCH = "main";
+
+        let cardMap = {};
 
         async function syncCards() {
             const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FOLDER}`;
@@ -240,6 +229,7 @@
                     files.forEach(file => {
                         if (file.name.toLowerCase().endsWith('.png')) {
                             const cleanName = file.name.replace('.png', '').replace(/-/g, ' ').toUpperCase();
+                            cardMap[cleanName] = file.name;
                             const option = document.createElement('option');
                             option.value = cleanName;
                             list.appendChild(option);
@@ -254,13 +244,14 @@
         searchInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') process(this.value); });
 
         function process(val) {
-            const name = val.trim();
-            if (!name) return;
-            const filename = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '.png';
+            const inputName = val.trim().toUpperCase();
             const slot = document.getElementById('card-slot');
-            const img = new Image();
-            img.src = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${GITHUB_FOLDER}/${filename}`;
-            img.onload = () => { slot.innerHTML = ""; slot.appendChild(img); };
+            const realFileName = cardMap[inputName];
+            if (realFileName) {
+                const img = new Image();
+                img.src = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${BRANCH}/${GITHUB_FOLDER}/${realFileName}`;
+                img.onload = () => { slot.innerHTML = ""; slot.appendChild(img); };
+            }
             searchInput.value = ""; searchInput.blur();
         }
 
@@ -274,10 +265,6 @@
 
         function toggleMode() {
             document.body.classList.toggle('preview-mode');
-            if (document.body.classList.contains('preview-mode')) {
-                const s = Math.min(window.innerWidth/1920, window.innerHeight/1080);
-                document.querySelector('.layout-grid').style.transform = `scale(${s})`;
-            } else { document.querySelector('.layout-grid').style.transform = ''; }
         }
     </script>
 </body>
