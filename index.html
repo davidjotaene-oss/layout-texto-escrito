@@ -34,16 +34,16 @@
         .layout-grid {
             display: grid;
             grid-template-columns: 1fr 420px;
-            grid-template-rows: 160px 1fr 30px; /* Footer un poco más alto */
-            width: 100%; height: 100%;
+            /* HEADER (160px) | AREA JUEGO (1fr) | FOOTER (50px) */
+            grid-template-rows: 160px 1fr 50px; 
+            width: 1920px; height: 1080px;
         }
         
         body.preview-mode .layout-grid {
-            width: 1920px; height: 1080px;
             transform-origin: center center;
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER (TOP) --- */
         .header {
             grid-column: 1 / span 2;
             background: black;
@@ -61,49 +61,36 @@
         .subtitle-myl { margin: 0; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--neon-green); letter-spacing: 5px; text-shadow: 0 0 10px var(--neon-green); }
         .team-title { font-size: 5.5rem; color: #fff; letter-spacing: 4px; text-shadow: 2px 2px 5px black, 0 0 20px var(--neon-cyan); margin: 0; line-height: 1; }
 
-        /* --- CONTENEDORES DE PERSONAJES (CORTE LIMPIO) --- */
+        /* --- PERSONAJES (RECORTE LIMPIO) --- */
         .char-container {
-            position: absolute; 
-            top: 0; 
-            height: 156px; /* Ajustado para que corte justo antes del borde inferior del header */
-            width: 400px;
-            z-index: 1; 
-            background: radial-gradient(circle at center, transparent 30%, black 85%);
+            position: absolute; top: 0; height: 156px; width: 400px;
+            z-index: 1; background: radial-gradient(circle at center, transparent 30%, black 85%);
             display: flex; align-items: center; justify-content: center;
-            overflow: hidden; /* Esto hace que el personaje se corte abajo */
+            overflow: hidden;
         }
         .char-left { left: 18%; }
         .char-right { right: 18%; }
-        
-        .bg-character { 
-            height: 200%; /* Tamaño grande para que se vea imponente */
-            transform: translateY(30px); /* Posicionamiento para que solo se vea el torso/cabeza */
-            animation: burnEffect 1.5s infinite alternate; 
-        }
+        .bg-character { height: 200%; transform: translateY(30px); animation: burnEffect 1.5s infinite alternate; }
 
         @keyframes burnEffect {
             0% { filter: brightness(0.7) drop-shadow(0 0 5px var(--fire-main)); }
             100% { filter: brightness(1.1) drop-shadow(0 0 25px var(--fire-main)); }
         }
 
-        /* --- TAO PAI PAI CON PARTÍCULAS RECONSTRUIDAS --- */
+        /* --- TAO PAI PAI + PARTÍCULAS --- */
         .tao-container {
             position: relative; width: 280px; height: 150px;
             display: flex; align-items: center; justify-content: center;
-            animation: flyFloat 3s ease-in-out infinite, vibrate 0.2s linear infinite;
-            z-index: 15;
+            animation: flyFloat 3s ease-in-out infinite; z-index: 15;
         }
         .tao-img { height: 130px; z-index: 2; filter: drop-shadow(0 0 10px var(--neon-pink)); }
-
         .speed-lines { position: absolute; right: 40%; width: 200px; height: 100px; z-index: 1; overflow: hidden; }
         .line {
             position: absolute; background: linear-gradient(90deg, transparent, var(--neon-green));
             height: 2px; border-radius: 2px; opacity: 0.6; animation: moveLines 0.5s linear infinite;
         }
-
         @keyframes moveLines { from { transform: translateX(0); } to { transform: translateX(-200px); opacity: 0; } }
         @keyframes flyFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
-        @keyframes vibrate { 0% { margin-left: 0px; } 25% { margin-left: 1px; } 100% { margin-left: 0px; } }
 
         /* --- SIDEBAR --- */
         .sidebar {
@@ -122,9 +109,8 @@
             padding: 10px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif;
             font-size: 0.8rem; margin-bottom: 15px; outline: none; box-sizing: border-box;
         }
-        .search-box:focus { border-color: var(--neon-cyan); box-shadow: 0 0 15px var(--neon-cyan); }
 
-        /* CARD SLOT CON ANIMACIÓN DE GIRO */
+        /* CONTENEDOR CARTA */
         .card-slot { 
             width: 100%; height: 480px; 
             background: rgba(0,0,0,0.5); border: 1px dashed #222; border-radius: 15px;
@@ -134,38 +120,34 @@
             max-width: 95%; max-height: 95%; object-fit: contain; 
             animation: cardAppear 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
         }
-
         @keyframes cardAppear {
-            0% { transform: scale(0) rotate(-180deg); opacity: 0; filter: brightness(3); }
-            70% { transform: scale(1.1) rotate(10deg); filter: brightness(1.5); }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; filter: brightness(1) drop-shadow(0 0 15px var(--neon-cyan)); }
+            0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 15px var(--neon-cyan)); }
         }
 
-        /* SCORE */
+        /* MARCADOR */
         .score-val { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; color: var(--neon-cyan); }
         .score-btn { background: var(--neon-cyan); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; transition: 0.3s; }
-        .score-btn:hover { background: white; transform: scale(1.1); }
 
         /* SOCIAL */
         .social-box { margin-top: auto; border: 2px solid var(--neon-pink); background: black; padding: 15px; text-align: center; border-radius: 12px; }
         .instagram-tag { display: inline-flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--neon-cyan); }
 
-        /* FOOTER (RESTAURADO) */
+        /* --- FOOTER (BARRA DE CIERRE) --- */
         .footer-bar { 
             grid-column: 1 / span 2; 
-            background: linear-gradient(90deg, var(--neon-cyan), black, var(--neon-pink)); 
-            border-top: 2px solid rgba(255,255,255,0.1);
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+            background: linear-gradient(90deg, var(--neon-cyan), #000 15%, #000 85%, var(--neon-pink));
+            border-top: 4px solid var(--neon-cyan); /* La línea de cierre */
+            box-shadow: 0 -10px 25px rgba(0, 242, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
         }
 
         .label { display: block; color: var(--neon-pink); font-size: 1.1rem; text-transform: uppercase; margin-bottom: 10px; font-family: 'Orbitron'; }
-        .logo-geek { width: 230px; filter: drop-shadow(0 0 8px var(--neon-cyan)); z-index: 15; }
-
-        .mode-toggle {
-            position: fixed; top: 10px; left: 10px; z-index: 9999;
-            background: rgba(0, 0, 0, 0.4); border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan); padding: 5px; font-size: 10px; cursor: pointer; opacity: 0.2;
-        }
+        .logo-geek { width: 230px; filter: drop-shadow(0 0 8px var(--neon-cyan)); }
+        .mode-toggle { position: fixed; top: 10px; left: 10px; z-index: 9999; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--neon-cyan); color: var(--neon-cyan); padding: 5px; font-size: 10px; cursor: pointer; opacity: 0.2; }
     </style>
 </head>
 <body>
@@ -174,7 +156,6 @@
 
     <div class="layout-grid">
         <header class="header">
-            <!-- TAO PAI PAI CON SUS PARTÍCULAS -->
             <div class="tao-container">
                 <div class="speed-lines">
                     <div class="line" style="top:20%; width:80px; animation-delay: 0.1s"></div>
@@ -184,7 +165,6 @@
                 <img src="tao_logo.png" alt="Tao Pai Pai" class="tao-img">
             </div>
 
-            <!-- AKUMA (Izquierda) -->
             <div class="char-container char-left">
                 <img src="personaje_bg.png" alt="" class="bg-character">
             </div>
@@ -194,7 +174,6 @@
                 <h1 class="team-title">TEAM TAO PAI PAI</h1>
             </div>
 
-            <!-- MECHA (Derecha) -->
             <div class="char-container char-right">
                 <img src="personaje_right.png" alt="" class="bg-character">
             </div>
@@ -202,16 +181,16 @@
             <img src="aogeek.png" alt="AO GEEK STORE" class="logo-geek">
         </header>
 
+        <!-- ÁREA DE VIDEO OBS -->
         <main class="game-area"></main>
 
         <aside class="sidebar">
             <div class="neon-border">
-                <span class="label">Buscador de Carta</span>
+                <span class="label">Selector de Carta</span>
                 <input type="text" id="card-search" class="search-box" placeholder="Escribe y Enter..." list="card-list" autocomplete="off">
                 <datalist id="card-list"></datalist>
-
                 <div class="card-slot" id="card-slot">
-                    <span id="placeholder-text" style="color:#222; font-family:'Orbitron'; font-size:0.7rem;">ESPERANDO...</span>
+                    <span id="placeholder-text" style="color:#222; font-family:'Orbitron'; font-size:0.7rem;">SIN CARTA</span>
                 </div>
             </div>
 
@@ -237,8 +216,12 @@
             </div>
         </aside>
 
-        <!-- FOOTER BARRA FINAL -->
-        <div class="footer-bar"></div>
+        <!-- BARRA DE CIERRE INFERIOR -->
+        <div class="footer-bar">
+            <div style="color: rgba(255,255,255,0.2); font-family: 'Orbitron'; font-size: 0.6rem; letter-spacing: 10px;">
+                TEAM TAO PAI PAI • OFFICIAL STREAM LAYOUT
+            </div>
+        </div>
     </div>
 
     <script>
@@ -263,7 +246,7 @@
                         }
                     });
                 }
-            } catch (e) { console.error("Error sincronizando GitHub", e); }
+            } catch (e) { console.error(e); }
         }
 
         const searchInput = document.getElementById('card-search');
