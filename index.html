@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layout MyL Final - DavidJotaene Fix</title>
+    <title>Layout MyL Final - DavidJotaene FIXED</title>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
@@ -16,23 +16,22 @@
             --dark-tcg: #0a0a0c;
         }
 
+        /* Forzamos el tamaño real de un stream 1080p */
         body, html {
             margin: 0; padding: 0;
             width: 1920px; height: 1080px;
             background: transparent !important;
             font-family: 'Bangers', cursive;
-            color: white;
             overflow: hidden;
+            position: relative;
         }
-        
-        /* Contenedor Principal con tamaño fijo */
+
+        /* Estructura Principal */
         .layout-grid {
             display: grid;
             grid-template-columns: 1fr 420px;
-            /* Header 160px | Centro Flexible | Footer 60px */
-            grid-template-rows: 160px 1fr 60px; 
+            grid-template-rows: 160px 1fr; /* Quitamos el footer del grid para anclarlo */
             width: 1920px; height: 1080px;
-            box-sizing: border-box;
         }
 
         /* --- HEADER --- */
@@ -90,6 +89,7 @@
             background-size: 20px 20px;
             border-left: 3px solid var(--neon-cyan);
             padding: 25px; display: flex; flex-direction: column; gap: 20px; z-index: 20;
+            height: calc(1080px - 160px - 40px); /* Ajuste de altura para que no empuje el footer */
         }
 
         .neon-border { border: 1px solid var(--neon-cyan); padding: 15px; border-radius: 10px; background: rgba(0, 0, 0, 0.9); }
@@ -104,7 +104,6 @@
             width: 100%; height: 480px; 
             background: rgba(0,0,0,0.5); border: 1px dashed #222; border-radius: 15px;
             display: flex; align-items: center; justify-content: center; overflow: hidden;
-            position: relative;
         }
         .card-slot img { 
             max-width: 95%; max-height: 95%; object-fit: contain; 
@@ -115,41 +114,40 @@
             100% { transform: scale(1) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 15px var(--neon-cyan)); }
         }
 
-        /* SCORE */
+        /* MARCADO */
         .score-val { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; color: var(--neon-cyan); }
         .score-btn { background: var(--neon-cyan); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 1.2rem; }
 
         .social-box { margin-top: auto; border: 2px solid var(--neon-pink); background: black; padding: 15px; text-align: center; border-radius: 12px; }
         .instagram-tag { display: inline-flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--neon-cyan); }
 
-        /* --- BARRA DE ABAJO (FOOTER) - CORREGIDA --- */
+        /* --- BARRA DE ABAJO (FOOTER) - ANCLAJE ABSOLUTO --- */
         .footer-bar { 
-            grid-column: 1 / span 2; 
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 1920px;
+            height: 40px; /* Altura fija */
             background: #000;
-            border-top: 4px solid var(--neon-cyan);
-            border-bottom: 4px solid var(--neon-pink);
+            border-top: 5px solid var(--neon-cyan);
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 -10px 30px rgba(0, 242, 255, 0.3);
-            z-index: 100; /* Asegurar que esté sobre todo */
+            z-index: 100;
+            box-shadow: 0 -10px 20px rgba(0, 242, 255, 0.2);
         }
 
         .footer-text {
             color: white;
             font-family: 'Orbitron';
-            font-size: 0.8rem;
-            letter-spacing: 12px;
-            text-shadow: 0 0 10px var(--neon-cyan);
-            opacity: 0.8;
+            font-size: 0.7rem;
+            letter-spacing: 15px;
+            opacity: 0.6;
         }
 
         .label { display: block; color: var(--neon-pink); font-size: 1.1rem; text-transform: uppercase; margin-bottom: 10px; font-family: 'Orbitron'; }
         .logo-geek { width: 230px; filter: drop-shadow(0 0 8px var(--neon-cyan)); }
-        .mode-toggle { position: fixed; top: 10px; left: 10px; z-index: 9999; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--neon-cyan); color: var(--neon-cyan); padding: 5px; font-size: 10px; cursor: pointer; opacity: 0.2; }
     </style>
 </head>
 <body>
-
-    <button class="mode-toggle" onclick="toggleMode()">MODO PREVIEW</button>
 
     <div class="layout-grid">
         <header class="header">
@@ -178,7 +176,7 @@
                 <input type="text" id="card-search" class="search-box" placeholder="Escribe y Enter..." list="card-list">
                 <datalist id="card-list"></datalist>
                 <div class="card-slot" id="card-slot">
-                    <span id="placeholder-text" style="color:#333; font-family:'Orbitron'; font-size:0.7rem;">ESPERANDO...</span>
+                    <span style="color:#222; font-family:'Orbitron'; font-size:0.7rem;">SIN CARTA</span>
                 </div>
             </div>
 
@@ -203,18 +201,17 @@
                 <div class="instagram-tag"><i class="fab fa-instagram"></i> @teamtaopaipai</div>
             </div>
         </aside>
-
-        <!-- BARRA DE CIERRE INFERIOR (FOOTER) -->
-        <footer class="footer-bar">
-            <div class="footer-text">TEAM TAO PAI PAI • OFFICIAL LAYOUT</div>
-        </footer>
     </div>
+
+    <!-- ESTA BARRA ESTÁ FUERA DEL GRID PARA QUE NADA LA EMPUJE -->
+    <footer class="footer-bar">
+        <div class="footer-text">TEAM TAO PAI PAI • OFFICIAL LAYOUT</div>
+    </footer>
 
     <script>
         const GITHUB_USER = "davidjotaene-oss"; 
         const GITHUB_REPO = "layout-texto-escrito"; 
         const GITHUB_FOLDER = "cartas"; 
-        const BRANCH = "main";
 
         let cardMap = {};
 
@@ -225,7 +222,6 @@
                 const response = await fetch(url);
                 const files = await response.json();
                 if (Array.isArray(files)) {
-                    list.innerHTML = ""; 
                     files.forEach(file => {
                         if (file.name.toLowerCase().endsWith('.png')) {
                             const cleanName = file.name.replace('.png', '').replace(/-/g, ' ').toUpperCase();
@@ -245,11 +241,11 @@
 
         function process(val) {
             const inputName = val.trim().toUpperCase();
-            const slot = document.getElementById('card-slot');
             const realFileName = cardMap[inputName];
             if (realFileName) {
+                const slot = document.getElementById('card-slot');
                 const img = new Image();
-                img.src = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${BRANCH}/${GITHUB_FOLDER}/${realFileName}`;
+                img.src = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${GITHUB_FOLDER}/${realFileName}`;
                 img.onload = () => { slot.innerHTML = ""; slot.appendChild(img); };
             }
             searchInput.value = ""; searchInput.blur();
@@ -261,10 +257,6 @@
             let el = document.getElementById(p+'-val');
             let s = parseInt(el.innerText) + n;
             if(s >= 0) el.innerText = s;
-        }
-
-        function toggleMode() {
-            document.body.classList.toggle('preview-mode');
         }
     </script>
 </body>
