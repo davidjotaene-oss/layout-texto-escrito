@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layout MyL Final - DavidJotaene FIXED</title>
+    <title>Layout MyL - DavidJotaene Fix</title>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
@@ -16,167 +16,112 @@
             --dark-tcg: #0a0a0c;
         }
 
-        /* Forzamos el tamaño real de un stream 1080p */
         body, html {
             margin: 0; padding: 0;
             width: 1920px; height: 1080px;
             background: transparent !important;
             font-family: 'Bangers', cursive;
             overflow: hidden;
-            position: relative;
         }
 
-        /* Estructura Principal */
+        /* GRID SIMPLE: 3 FILAS (Header, Centro, Footer) */
         .layout-grid {
             display: grid;
             grid-template-columns: 1fr 420px;
-            grid-template-rows: 160px 1fr; /* Quitamos el footer del grid para anclarlo */
-            width: 1920px; height: 1080px;
+            grid-template-rows: 160px 1fr 45px; 
+            width: 100%; height: 100%;
         }
 
-        /* --- HEADER --- */
+        /* HEADER */
         .header {
             grid-column: 1 / span 2;
             background: black;
             border-bottom: 4px solid var(--neon-cyan);
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 60px;
-            box-shadow: 0 5px 25px rgba(0, 242, 255, 0.4);
             z-index: 10; position: relative;
         }
 
-        .title-group { 
-            position: absolute; left: 50%; transform: translateX(-50%);
-            text-align: center; z-index: 15; 
-        }
-        .subtitle-myl { margin: 0; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--neon-green); letter-spacing: 5px; text-shadow: 0 0 10px var(--neon-green); }
-        .team-title { font-size: 5.5rem; color: #fff; letter-spacing: 4px; text-shadow: 2px 2px 5px black, 0 0 20px var(--neon-cyan); margin: 0; line-height: 1; }
+        .title-group { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; }
+        .team-title { font-size: 5.5rem; text-shadow: 0 0 20px var(--neon-cyan); margin: 0; line-height: 1; }
+        .subtitle-myl { margin: 0; font-family: 'Orbitron'; color: var(--neon-green); letter-spacing: 5px; }
 
-        /* PERSONAJES */
-        .char-container {
-            position: absolute; top: 0; height: 156px; width: 400px;
-            z-index: 1; background: radial-gradient(circle at center, transparent 30%, black 85%);
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
-        }
+        /* PERSONAJES HEADER */
+        .char-container { position: absolute; top: 0; height: 156px; width: 400px; overflow: hidden; display: flex; justify-content: center; }
         .char-left { left: 18%; }
         .char-right { right: 18%; }
-        .bg-character { height: 200%; transform: translateY(30px); animation: burnEffect 1.5s infinite alternate; }
+        .bg-character { height: 200%; transform: translateY(30px); animation: burn 1.5s infinite alternate; }
+        @keyframes burn { 0% { filter: brightness(0.7); } 100% { filter: brightness(1.1) drop-shadow(0 0 15px var(--fire-main)); } }
 
-        @keyframes burnEffect {
-            0% { filter: brightness(0.7) drop-shadow(0 0 5px var(--fire-main)); }
-            100% { filter: brightness(1.1) drop-shadow(0 0 25px var(--fire-main)); }
-        }
+        /* LOGOS HEADER */
+        .tao-img { height: 130px; filter: drop-shadow(0 0 10px var(--neon-pink)); }
+        .logo-geek { width: 200px; }
 
-        .tao-container {
-            position: relative; width: 280px; height: 150px;
-            display: flex; align-items: center; justify-content: center;
-            animation: flyFloat 3s ease-in-out infinite; z-index: 15;
-        }
-        .tao-img { height: 130px; z-index: 2; filter: drop-shadow(0 0 10px var(--neon-pink)); }
-        .speed-lines { position: absolute; right: 40%; width: 200px; height: 100px; z-index: 1; overflow: hidden; }
-        .line {
-            position: absolute; background: linear-gradient(90deg, transparent, var(--neon-green));
-            height: 2px; border-radius: 2px; opacity: 0.6; animation: moveLines 0.5s linear infinite;
-        }
-        @keyframes moveLines { from { transform: translateX(0); } to { transform: translateX(-200px); opacity: 0; } }
-        @keyframes flyFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
-
-        /* --- SIDEBAR --- */
+        /* SIDEBAR (DERECHA) */
         .sidebar {
             background-color: var(--dark-tcg);
-            background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
-            background-size: 20px 20px;
             border-left: 3px solid var(--neon-cyan);
-            padding: 25px; display: flex; flex-direction: column; gap: 20px; z-index: 20;
-            height: calc(1080px - 160px - 40px); /* Ajuste de altura para que no empuje el footer */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio entre bloques */
+            overflow: hidden;
         }
 
-        .neon-border { border: 1px solid var(--neon-cyan); padding: 15px; border-radius: 10px; background: rgba(0, 0, 0, 0.9); }
+        .neon-border { border: 1px solid var(--neon-cyan); padding: 12px; border-radius: 10px; background: rgba(0,0,0,0.8); }
 
-        .search-box {
-            width: 100%; background: #000; border: 1px solid #333; border-radius: 5px;
-            padding: 10px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem; margin-bottom: 15px; outline: none; box-sizing: border-box;
-        }
+        /* BUSCADOR Y CARTA */
+        .search-box { width: 100%; background: #000; border: 1px solid #333; padding: 8px; color: var(--neon-cyan); font-family: 'Orbitron'; margin-bottom: 10px; }
+        .card-slot { width: 100%; height: 440px; border: 1px dashed #222; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .card-slot img { max-width: 95%; max-height: 95%; animation: appear 0.5s ease-out; }
+        @keyframes appear { from { transform: scale(0.5) rotate(-10deg); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        .card-slot { 
-            width: 100%; height: 480px; 
-            background: rgba(0,0,0,0.5); border: 1px dashed #222; border-radius: 15px;
-            display: flex; align-items: center; justify-content: center; overflow: hidden;
-        }
-        .card-slot img { 
-            max-width: 95%; max-height: 95%; object-fit: contain; 
-            animation: cardAppear 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
-        }
-        @keyframes cardAppear {
-            0% { transform: scale(0) rotate(-180deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 15px var(--neon-cyan)); }
-        }
+        /* MARCADOR */
+        .score-val { font-family: 'Orbitron'; font-size: 3.2rem; color: var(--neon-cyan); }
+        .score-btn { background: var(--neon-cyan); border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; }
 
-        /* MARCADO */
-        .score-val { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; color: var(--neon-cyan); }
-        .score-btn { background: var(--neon-cyan); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 1.2rem; }
+        /* IG BOX - AL FINAL */
+        .social-box { border: 2px solid var(--neon-pink); background: black; padding: 10px; text-align: center; border-radius: 10px; margin-top: auto; }
+        .instagram-tag { display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Montserrat'; font-size: 1.2rem; color: var(--neon-cyan); }
 
-        .social-box { margin-top: auto; border: 2px solid var(--neon-pink); background: black; padding: 15px; text-align: center; border-radius: 12px; }
-        .instagram-tag { display: inline-flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--neon-cyan); }
-
-        /* --- BARRA DE ABAJO (FOOTER) - ANCLAJE ABSOLUTO --- */
-        .footer-bar { 
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 1920px;
-            height: 40px; /* Altura fija */
+        /* FOOTER (LA BARRA DE ABAJO) */
+        .footer-bar {
+            grid-column: 1 / span 2;
             background: #000;
-            border-top: 5px solid var(--neon-cyan);
+            border-top: 4px solid var(--neon-cyan);
             display: flex; align-items: center; justify-content: center;
-            z-index: 100;
-            box-shadow: 0 -10px 20px rgba(0, 242, 255, 0.2);
         }
+        .footer-text { color: white; font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 15px; opacity: 0.5; }
 
-        .footer-text {
-            color: white;
-            font-family: 'Orbitron';
-            font-size: 0.7rem;
-            letter-spacing: 15px;
-            opacity: 0.6;
-        }
-
-        .label { display: block; color: var(--neon-pink); font-size: 1.1rem; text-transform: uppercase; margin-bottom: 10px; font-family: 'Orbitron'; }
-        .logo-geek { width: 230px; filter: drop-shadow(0 0 8px var(--neon-cyan)); }
+        .label { display: block; color: var(--neon-pink); font-size: 1rem; text-transform: uppercase; margin-bottom: 5px; font-family: 'Orbitron'; }
     </style>
 </head>
 <body>
 
     <div class="layout-grid">
+        <!-- CABECERA -->
         <header class="header">
-            <div class="tao-container">
-                <div class="speed-lines">
-                    <div class="line" style="top:20%; width:80px; animation-delay: 0.1s"></div>
-                    <div class="line" style="top:50%; width:120px; animation-delay: 0.3s"></div>
-                    <div class="line" style="top:80%; width:60px; animation-delay: 0s"></div>
-                </div>
-                <img src="tao_logo.png" alt="Tao Pai Pai" class="tao-img">
-            </div>
+            <img src="tao_logo.png" class="tao-img">
             <div class="char-container char-left"><img src="personaje_bg.png" class="bg-character"></div>
             <div class="title-group">
                 <p class="subtitle-myl">MITOS Y LEYENDAS</p>
                 <h1 class="team-title">TEAM TAO PAI PAI</h1>
             </div>
             <div class="char-container char-right"><img src="personaje_right.png" class="bg-character"></div>
-            <img src="aogeek.png" alt="AO GEEK STORE" class="logo-geek">
+            <img src="aogeek.png" class="logo-geek">
         </header>
 
-        <main class="game-area"></main>
+        <!-- AREA DE JUEGO (VIDEO) -->
+        <main style="background: transparent;"></main>
 
+        <!-- LATERAL -->
         <aside class="sidebar">
             <div class="neon-border">
-                <span class="label">Selector de Carta</span>
-                <input type="text" id="card-search" class="search-box" placeholder="Escribe y Enter..." list="card-list">
+                <span class="label">Carta Jugada</span>
+                <input type="text" id="card-search" class="search-box" placeholder="Escribe y Enter..." list="card-list" autocomplete="off">
                 <datalist id="card-list"></datalist>
                 <div class="card-slot" id="card-slot">
-                    <span style="color:#222; font-family:'Orbitron'; font-size:0.7rem;">SIN CARTA</span>
+                    <span style="color:#222; font-family:'Orbitron'; font-size:0.6rem;">SIN CARTA</span>
                 </div>
             </div>
 
@@ -184,29 +129,32 @@
                 <span class="label">Marcador</span>
                 <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
                     <div style="text-align: center;">
-                        <button class="score-btn" onclick="changeScore('p1', 1)">+</button>
+                        <button class="score-btn" onclick="score('p1', 1)">+</button>
                         <div id="p1-val" class="score-val">0</div>
-                        <button class="score-btn" onclick="changeScore('p1', -1)">-</button>
+                        <button class="score-btn" onclick="score('p1', -1)">-</button>
                     </div>
-                    <div class="score-val" style="opacity: 0.3;">:</div>
+                    <div class="score-val" style="opacity: 0.2;">:</div>
                     <div style="text-align: center;">
-                        <button class="score-btn" onclick="changeScore('p2', 1)">+</button>
+                        <button class="score-btn" onclick="score('p2', 1)">+</button>
                         <div id="p2-val" class="score-val">0</div>
-                        <button class="score-btn" onclick="changeScore('p2', -1)">-</button>
+                        <button class="score-btn" onclick="score('p2', -1)">-</button>
                     </div>
                 </div>
             </div>
 
+            <!-- IG BOX YA NO SE TAPA -->
             <div class="social-box">
-                <div class="instagram-tag"><i class="fab fa-instagram"></i> @teamtaopaipai</div>
+                <div class="instagram-tag">
+                    <i class="fab fa-instagram"></i> @teamtaopaipai
+                </div>
             </div>
         </aside>
-    </div>
 
-    <!-- ESTA BARRA ESTÁ FUERA DEL GRID PARA QUE NADA LA EMPUJE -->
-    <footer class="footer-bar">
-        <div class="footer-text">TEAM TAO PAI PAI • OFFICIAL LAYOUT</div>
-    </footer>
+        <!-- BARRA INFERIOR -->
+        <footer class="footer-bar">
+            <div class="footer-text">TEAM TAO PAI PAI • OFFICIAL LAYOUT</div>
+        </footer>
+    </div>
 
     <script>
         const GITHUB_USER = "davidjotaene-oss"; 
@@ -215,49 +163,40 @@
 
         let cardMap = {};
 
-        async function syncCards() {
-            const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FOLDER}`;
-            const list = document.getElementById('card-list');
+        async function sync() {
             try {
-                const response = await fetch(url);
-                const files = await response.json();
-                if (Array.isArray(files)) {
-                    files.forEach(file => {
-                        if (file.name.toLowerCase().endsWith('.png')) {
-                            const cleanName = file.name.replace('.png', '').replace(/-/g, ' ').toUpperCase();
-                            cardMap[cleanName] = file.name;
-                            const option = document.createElement('option');
-                            option.value = cleanName;
-                            list.appendChild(option);
-                        }
-                    });
-                }
-            } catch (e) { console.error(e); }
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FOLDER}`);
+                const files = await res.json();
+                const list = document.getElementById('card-list');
+                files.forEach(f => {
+                    if (f.name.toLowerCase().endsWith('.png')) {
+                        const name = f.name.replace('.png','').replace(/-/g,' ').toUpperCase();
+                        cardMap[name] = f.name;
+                        let opt = document.createElement('option');
+                        opt.value = name;
+                        list.appendChild(opt);
+                    }
+                });
+            } catch (e) {}
         }
 
-        const searchInput = document.getElementById('card-search');
-        searchInput.addEventListener('change', function() { process(this.value); });
-        searchInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') process(this.value); });
-
-        function process(val) {
-            const inputName = val.trim().toUpperCase();
-            const realFileName = cardMap[inputName];
-            if (realFileName) {
+        const input = document.getElementById('card-search');
+        input.addEventListener('change', function() {
+            const file = cardMap[this.value.trim().toUpperCase()];
+            if(file) {
                 const slot = document.getElementById('card-slot');
-                const img = new Image();
-                img.src = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${GITHUB_FOLDER}/${realFileName}`;
-                img.onload = () => { slot.innerHTML = ""; slot.appendChild(img); };
+                slot.innerHTML = `<img src="https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${GITHUB_FOLDER}/${file}">`;
             }
-            searchInput.value = ""; searchInput.blur();
+            this.value = ""; this.blur();
+        });
+
+        function score(p, n) {
+            let e = document.getElementById(p+'-val');
+            let v = parseInt(e.innerText) + n;
+            if(v >= 0) e.innerText = v;
         }
 
-        syncCards();
-
-        function changeScore(p, n) {
-            let el = document.getElementById(p+'-val');
-            let s = parseInt(el.innerText) + n;
-            if(s >= 0) el.innerText = s;
-        }
+        sync();
     </script>
 </body>
 </html>
