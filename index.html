@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layout MyL - DavidJotaene Edition</title>
+    <title>Layout MyL Final - DavidJotaene Definitive</title>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
@@ -25,7 +25,6 @@
             overflow: hidden;
         }
         
-        /* MODO PREVIEW PARA NAVEGADOR */
         body.preview-mode {
             width: 100vw; height: 100vh;
             display: flex; align-items: center; justify-content: center;
@@ -35,7 +34,7 @@
         .layout-grid {
             display: grid;
             grid-template-columns: 1fr 420px;
-            grid-template-rows: 160px 1fr 20px;
+            grid-template-rows: 160px 1fr 30px; /* Footer un poco más alto */
             width: 100%; height: 100%;
         }
         
@@ -62,23 +61,49 @@
         .subtitle-myl { margin: 0; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--neon-green); letter-spacing: 5px; text-shadow: 0 0 10px var(--neon-green); }
         .team-title { font-size: 5.5rem; color: #fff; letter-spacing: 4px; text-shadow: 2px 2px 5px black, 0 0 20px var(--neon-cyan); margin: 0; line-height: 1; }
 
+        /* --- CONTENEDORES DE PERSONAJES (CORTE LIMPIO) --- */
         .char-container {
-            position: absolute; top: 10px; height: 140px; width: 400px;
-            z-index: 1; background: radial-gradient(circle at center, transparent 30%, black 85%);
+            position: absolute; 
+            top: 0; 
+            height: 156px; /* Ajustado para que corte justo antes del borde inferior del header */
+            width: 400px;
+            z-index: 1; 
+            background: radial-gradient(circle at center, transparent 30%, black 85%);
             display: flex; align-items: center; justify-content: center;
+            overflow: hidden; /* Esto hace que el personaje se corte abajo */
         }
-        .char-left { left: 20%; }
-        .char-right { right: 20%; }
-        .bg-character { height: 220%; transform: translateY(30px); animation: burnEffect 1.5s infinite alternate; }
+        .char-left { left: 18%; }
+        .char-right { right: 18%; }
+        
+        .bg-character { 
+            height: 200%; /* Tamaño grande para que se vea imponente */
+            transform: translateY(30px); /* Posicionamiento para que solo se vea el torso/cabeza */
+            animation: burnEffect 1.5s infinite alternate; 
+        }
 
         @keyframes burnEffect {
             0% { filter: brightness(0.7) drop-shadow(0 0 5px var(--fire-main)); }
             100% { filter: brightness(1.1) drop-shadow(0 0 25px var(--fire-main)); }
         }
 
-        .tao-container { position: relative; width: 280px; display: flex; align-items: center; justify-content: center; z-index: 15; }
-        .tao-img { height: 130px; filter: drop-shadow(0 0 10px var(--neon-pink)); animation: flyFloat 3s ease-in-out infinite; }
+        /* --- TAO PAI PAI CON PARTÍCULAS RECONSTRUIDAS --- */
+        .tao-container {
+            position: relative; width: 280px; height: 150px;
+            display: flex; align-items: center; justify-content: center;
+            animation: flyFloat 3s ease-in-out infinite, vibrate 0.2s linear infinite;
+            z-index: 15;
+        }
+        .tao-img { height: 130px; z-index: 2; filter: drop-shadow(0 0 10px var(--neon-pink)); }
+
+        .speed-lines { position: absolute; right: 40%; width: 200px; height: 100px; z-index: 1; overflow: hidden; }
+        .line {
+            position: absolute; background: linear-gradient(90deg, transparent, var(--neon-green));
+            height: 2px; border-radius: 2px; opacity: 0.6; animation: moveLines 0.5s linear infinite;
+        }
+
+        @keyframes moveLines { from { transform: translateX(0); } to { transform: translateX(-200px); opacity: 0; } }
         @keyframes flyFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
+        @keyframes vibrate { 0% { margin-left: 0px; } 25% { margin-left: 1px; } 100% { margin-left: 0px; } }
 
         /* --- SIDEBAR --- */
         .sidebar {
@@ -89,45 +114,50 @@
             padding: 25px; display: flex; flex-direction: column; gap: 20px; z-index: 20;
         }
 
-        .neon-border { border: 1px solid var(--neon-cyan); padding: 15px; border-radius: 10px; background: rgba(0, 0, 0, 0.9); position: relative; }
+        .neon-border { border: 1px solid var(--neon-cyan); padding: 15px; border-radius: 10px; background: rgba(0, 0, 0, 0.9); }
 
-        /* BUSCADOR DISCRETO */
+        /* BUSCADOR */
         .search-box {
-            width: 100%;
-            background: #000;
-            border: 1px solid #333;
-            border-radius: 5px;
-            padding: 10px;
-            color: var(--neon-cyan);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-            outline: none;
-            transition: 0.3s;
-            box-sizing: border-box;
+            width: 100%; background: #000; border: 1px solid #333; border-radius: 5px;
+            padding: 10px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem; margin-bottom: 15px; outline: none; box-sizing: border-box;
         }
         .search-box:focus { border-color: var(--neon-cyan); box-shadow: 0 0 15px var(--neon-cyan); }
 
-        /* CONTENEDOR DE CARTA */
+        /* CARD SLOT CON ANIMACIÓN DE GIRO */
         .card-slot { 
             width: 100%; height: 480px; 
             background: rgba(0,0,0,0.5); border: 1px dashed #222; border-radius: 15px;
             display: flex; align-items: center; justify-content: center; overflow: hidden;
         }
-        .card-slot img { max-width: 95%; max-height: 95%; object-fit: contain; animation: cardAppear 0.4s ease-out; box-shadow: 0 0 20px rgba(0, 242, 255, 0.3); }
-        @keyframes cardAppear { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .card-slot img { 
+            max-width: 95%; max-height: 95%; object-fit: contain; 
+            animation: cardAppear 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
+        }
+
+        @keyframes cardAppear {
+            0% { transform: scale(0) rotate(-180deg); opacity: 0; filter: brightness(3); }
+            70% { transform: scale(1.1) rotate(10deg); filter: brightness(1.5); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; filter: brightness(1) drop-shadow(0 0 15px var(--neon-cyan)); }
+        }
 
         /* SCORE */
         .score-val { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; color: var(--neon-cyan); }
-        .score-btn { background: var(--neon-cyan); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 1.2rem; font-weight: bold; }
+        .score-btn { background: var(--neon-cyan); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; transition: 0.3s; }
         .score-btn:hover { background: white; transform: scale(1.1); }
 
         /* SOCIAL */
         .social-box { margin-top: auto; border: 2px solid var(--neon-pink); background: black; padding: 15px; text-align: center; border-radius: 12px; }
         .instagram-tag { display: inline-flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--neon-cyan); }
-        .instagram-tag i { color: var(--neon-pink); }
 
-        .footer-bar { grid-column: 1 / span 2; background: linear-gradient(90deg, var(--neon-cyan), black, var(--neon-pink)); }
+        /* FOOTER (RESTAURADO) */
+        .footer-bar { 
+            grid-column: 1 / span 2; 
+            background: linear-gradient(90deg, var(--neon-cyan), black, var(--neon-pink)); 
+            border-top: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+        }
+
         .label { display: block; color: var(--neon-pink); font-size: 1.1rem; text-transform: uppercase; margin-bottom: 10px; font-family: 'Orbitron'; }
         .logo-geek { width: 230px; filter: drop-shadow(0 0 8px var(--neon-cyan)); z-index: 15; }
 
@@ -140,14 +170,21 @@
 </head>
 <body>
 
-    <button class="mode-toggle" onclick="toggleMode()">MODO PREVIEW (PARA PRUEBAS)</button>
+    <button class="mode-toggle" onclick="toggleMode()">MODO PREVIEW</button>
 
     <div class="layout-grid">
         <header class="header">
+            <!-- TAO PAI PAI CON SUS PARTÍCULAS -->
             <div class="tao-container">
+                <div class="speed-lines">
+                    <div class="line" style="top:20%; width:80px; animation-delay: 0.1s"></div>
+                    <div class="line" style="top:50%; width:120px; animation-delay: 0.3s"></div>
+                    <div class="line" style="top:80%; width:60px; animation-delay: 0s"></div>
+                </div>
                 <img src="tao_logo.png" alt="Tao Pai Pai" class="tao-img">
             </div>
 
+            <!-- AKUMA (Izquierda) -->
             <div class="char-container char-left">
                 <img src="personaje_bg.png" alt="" class="bg-character">
             </div>
@@ -157,6 +194,7 @@
                 <h1 class="team-title">TEAM TAO PAI PAI</h1>
             </div>
 
+            <!-- MECHA (Derecha) -->
             <div class="char-container char-right">
                 <img src="personaje_right.png" alt="" class="bg-character">
             </div>
@@ -168,16 +206,12 @@
 
         <aside class="sidebar">
             <div class="neon-border">
-                <span class="label">Selector de Carta</span>
-                <!-- BUSCADOR -->
-                <input type="text" id="card-search" class="search-box" placeholder="Escribe nombre..." list="card-list" autocomplete="off">
-                <datalist id="card-list">
-                    <!-- Se llena solo desde GitHub -->
-                </datalist>
+                <span class="label">Buscador de Carta</span>
+                <input type="text" id="card-search" class="search-box" placeholder="Escribe y Enter..." list="card-list" autocomplete="off">
+                <datalist id="card-list"></datalist>
 
                 <div class="card-slot" id="card-slot">
-                    <img id="card-img" src="" style="display:none;">
-                    <span id="placeholder-text" style="color:#222; font-family:'Orbitron'; font-size:0.7rem;">SIN CARTA SELECCIONADA</span>
+                    <span id="placeholder-text" style="color:#222; font-family:'Orbitron'; font-size:0.7rem;">ESPERANDO...</span>
                 </div>
             </div>
 
@@ -199,100 +233,56 @@
             </div>
 
             <div class="social-box">
-                <div class="instagram-tag">
-                    <i class="fab fa-instagram"></i>
-                    @teamtaopaipai
-                </div>
+                <div class="instagram-tag"><i class="fab fa-instagram"></i> @teamtaopaipai</div>
             </div>
         </aside>
 
+        <!-- FOOTER BARRA FINAL -->
         <div class="footer-bar"></div>
     </div>
 
     <script>
-        /** 
-         * CONFIGURACIÓN AUTOMÁTICA DAVIDJOTAENE-OSS
-         */
         const GITHUB_USER = "davidjotaene-oss"; 
         const GITHUB_REPO = "layout-texto-escrito"; 
         const GITHUB_FOLDER = "cartas"; 
 
-        // 1. Sincronizar nombres de archivos desde GitHub para el autocompletado
-        async function syncCardsFromGithub() {
+        async function syncCards() {
             const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FOLDER}`;
-            const datalist = document.getElementById('card-list');
-
+            const list = document.getElementById('card-list');
             try {
                 const response = await fetch(url);
                 const files = await response.json();
-
                 if (Array.isArray(files)) {
-                    datalist.innerHTML = ""; 
+                    list.innerHTML = ""; 
                     files.forEach(file => {
                         if (file.name.toLowerCase().endsWith('.png')) {
-                            // Limpia el nombre para que sea legible en el buscador
-                            // Ejemplo: "caballero-luz.png" -> "CABALLERO LUZ"
-                            const cleanName = file.name
-                                .replace('.png', '')
-                                .replace(/-/g, ' ')
-                                .toUpperCase();
-                            
+                            const cleanName = file.name.replace('.png', '').replace(/-/g, ' ').toUpperCase();
                             const option = document.createElement('option');
                             option.value = cleanName;
-                            datalist.appendChild(option);
+                            list.appendChild(option);
                         }
                     });
-                    console.log("✅ Lista de cartas actualizada desde GitHub");
                 }
-            } catch (error) {
-                console.error("❌ Error conectando con la API de GitHub:", error);
-            }
+            } catch (e) { console.error("Error sincronizando GitHub", e); }
         }
 
-        // 2. Lógica para cargar la imagen seleccionada
         const searchInput = document.getElementById('card-search');
+        searchInput.addEventListener('change', function() { process(this.value); });
+        searchInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') process(this.value); });
 
-        searchInput.addEventListener('change', function() {
-            processSearch(this.value);
-        });
-
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                processSearch(this.value);
-            }
-        });
-
-        function processSearch(val) {
+        function process(val) {
             const name = val.trim();
             if (!name) return;
-
-            // Formatear: "Mi Carta" -> "mi-carta.png"
-            const filename = name
-                .toLowerCase()
-                .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Quitar acentos
-                .replace(/\s+/g, '-') // Espacios por guiones
-                .replace(/[^a-z0-9-]/g, '') // Quitar símbolos
-                + '.png';
-
-            const cardImg = document.getElementById('card-img');
-            const placeholder = document.getElementById('placeholder-text');
-            
-            // URL Raw de GitHub
-            const rawUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${GITHUB_FOLDER}/${filename}`;
-            
-            cardImg.src = rawUrl;
-            cardImg.style.display = 'block';
-            if(placeholder) placeholder.style.display = 'none';
-
-            searchInput.value = ""; // Limpiar input
-            searchInput.blur(); // Quitar el teclado/foco
-            console.log("Intentando cargar:", rawUrl);
+            const filename = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '.png';
+            const slot = document.getElementById('card-slot');
+            const img = new Image();
+            img.src = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${GITHUB_FOLDER}/${filename}`;
+            img.onload = () => { slot.innerHTML = ""; slot.appendChild(img); };
+            searchInput.value = ""; searchInput.blur();
         }
 
-        // Iniciar sincronización
-        syncCardsFromGithub();
+        syncCards();
 
-        // --- SISTEMAS DE SCORE Y RESPONSIVE ---
         function changeScore(p, n) {
             let el = document.getElementById(p+'-val');
             let s = parseInt(el.innerText) + n;
@@ -301,16 +291,11 @@
 
         function toggleMode() {
             document.body.classList.toggle('preview-mode');
-            if (document.body.classList.contains('preview-mode')) scale();
-            else document.querySelector('.layout-grid').style.transform = '';
+            if (document.body.classList.contains('preview-mode')) {
+                const s = Math.min(window.innerWidth/1920, window.innerHeight/1080);
+                document.querySelector('.layout-grid').style.transform = `scale(${s})`;
+            } else { document.querySelector('.layout-grid').style.transform = ''; }
         }
-
-        function scale() {
-            const container = document.querySelector('.layout-grid');
-            const s = Math.min(window.innerWidth/1920, window.innerHeight/1080);
-            container.style.transform = `scale(${s})`;
-        }
-        window.onresize = () => { if(document.body.classList.contains('preview-mode')) scale(); };
     </script>
 </body>
 </html>
